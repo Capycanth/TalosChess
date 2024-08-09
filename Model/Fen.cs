@@ -8,7 +8,5 @@
         {
             FEN = fEN;
         } 
-
-        public 
     }
 }

@@ -18,12 +18,12 @@ namespace TalosChess.State
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_font, _description, new Vector2(100f, device.Viewport.Height - 100f), Color.White);
+            spriteBatch.DrawString(_font, _description, new Vector2(100f, device.Viewport.Height - 100f), Color.White, 0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0f);
         }
 
         public override void LoadContent()
         {
-            _font = ResourceCache.Instance.GetResource<SpriteFont>("Talos_Greek_20");
+            _font = ResourceCache.Instance.GetResource<SpriteFont>("Fonts/Talos_Greek_20");
 
             // Don't need two copies, so get rid of cache
             ResourceCache.Instance.Unload();

@@ -29,10 +29,10 @@ namespace TalosChess.State
         protected override ResourceManifest SetManifest()
         {
             Manifest = new ResourceManifest(
-                textures: new List<string> { "start_button" },
+                //textures: new List<string> { "default_button", "default_button_hover" },
                 fonts: new List<string> { "Talos_Greek_14" },
-                songs: new List<string> { },
-                sounds: new List<string> { }
+                songs: LoaderPackage.SongsPlaylist
+                //sounds: new List<string> { "button_click" }
                 );
             return Manifest;
         }

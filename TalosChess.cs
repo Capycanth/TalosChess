@@ -40,9 +40,6 @@ namespace TalosChess
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _sceneManager.LoadPermScene(0, new LoadingScene(GraphicsDevice));
             _sceneManager.LoadSceneAsync(0);
-
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,7 +55,7 @@ namespace TalosChess
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             _sceneManager.Draw(_spriteBatch);
