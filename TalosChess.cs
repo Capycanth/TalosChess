@@ -1,9 +1,11 @@
 ﻿using CoelacanthEngine.cache;
 using CoelacanthEngine.config;
+using CoelacanthEngine.input;
 using CoelacanthEngine.state;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TalosChess.State;
 
 namespace TalosChess
 {
@@ -13,6 +15,7 @@ namespace TalosChess
         private SpriteBatch _spriteBatch;
 
         private SceneManager _sceneManager;
+        private InputManager _input;
 
         public TalosChess()
         {
@@ -25,6 +28,9 @@ namespace TalosChess
         {
             CoelacanthSettings.Initialize("TalosChess");
             ResourceCache.Initialize(Content);
+            _input = new InputManager(64);
+            _sceneManager = new SceneManager();
+            _sceneManager.AddScene(1, new HomeScene());
 
             base.Initialize();
         }
@@ -32,16 +38,20 @@ namespace TalosChess
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _sceneManager.LoadPermScene(0, new LoadingScene());
+            _sceneManager.LoadSceneAsync(0);
+
 
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            _input.Update(gameTime.ElapsedGameTime.Milliseconds);
+            if (_input.GetPressDuration(Keys.Escape) > 500 && _input.GetPressDuration(Keys.LeftControl) > 500)
                 Exit();
 
-            // TODO: Add your update logic here
+            _sceneManager.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
         }
@@ -50,7 +60,9 @@ namespace TalosChess
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            _sceneManager.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
