@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CoelacanthEngine.cache;
+using CoelacanthEngine.config;
+using CoelacanthEngine.state;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +12,8 @@ namespace TalosChess
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private SceneManager _sceneManager;
+
         public TalosChess()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -18,7 +23,8 @@ namespace TalosChess
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            CoelacanthSettings.Initialize("TalosChess");
+            ResourceCache.Initialize(Content);
 
             base.Initialize();
         }
