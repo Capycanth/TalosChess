@@ -30,7 +30,7 @@ namespace TalosChess
             ResourceCache.Initialize(Content);
             _input = new InputManager(64);
             _sceneManager = new SceneManager();
-            _sceneManager.AddScene(0, new HomeScene());
+            _sceneManager.AddScene((int)SceneEnum.HOME, new HomeScene(GraphicsDevice));
 
             base.Initialize();
         }
@@ -38,8 +38,8 @@ namespace TalosChess
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _sceneManager.LoadPermScene(0, new LoadingScene(GraphicsDevice));
-            _sceneManager.LoadSceneAsync(0);
+            _sceneManager.LoadPermScene((int)SceneEnum.LOADING, new LoadingScene(GraphicsDevice));
+            _sceneManager.LoadSceneAsync((int)SceneEnum.HOME);
         }
 
         protected override void Update(GameTime gameTime)

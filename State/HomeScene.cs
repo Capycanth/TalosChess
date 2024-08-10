@@ -1,29 +1,59 @@
-﻿using CoelacanthEngine.dexvision;
+﻿using CoelacanthEngine.audio;
+using CoelacanthEngine.cache;
+using CoelacanthEngine.dexvision;
+using CoelacanthEngine.dexvision.complex;
 using CoelacanthEngine.model;
 using CoelacanthEngine.state;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace TalosChess.State
 {
     public class HomeScene : BaseScene
     {
-        public HomeScene() : base()
+        private DxButtonCollection collection;
+        private readonly GraphicsDevice device;
+
+        public int TransitionToId { get; private set; }
+
+        public HomeScene(GraphicsDevice device) : base()
         {
+            this.device = device;
         }
 
-        public override void Initialize()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            throw new System.NotImplementedException();
+            base.Draw(spriteBatch);
+            collection.Draw(spriteBatch);
+        }
+
+        public override void Update(float deltaMs)
+        {
+            base.Update(deltaMs);
+            collection.Update(Input, deltaMs);
         }
 
         protected override List<DxObject> SetDxObjects()
         {
-            throw new System.NotImplementedException();
+            collection =
+                new DxButtonCollection(device, ButtonCollectionDirection.VERTICAL, 300, 100, 15,
+                    new ButtonManifest(
+                        ResourceCache.Instance.GetResource<Texture2D>("default_button"),
+                        new DxObjectInfo(new Rectangle(0, 0, device.Viewport.Width, device.Viewport.Height)),
+                        () => { TransitionToId = 1; },
+                        "Play",
+                        ResourceCache.Instance.GetResource<SpriteFont>("Talos_Greek_14"),
+                        Color.White,
+                        ResourceCache.Instance.GetResource<Texture2D>("default_button_hover"))
+                );
+
+            return new List<DxObject>(0);
         }
 
         protected override List<BaseObject> SetGameObjects()
         {
-            throw new System.NotImplementedException();
+            return new List<BaseObject>(0);
         }
 
         protected override ResourceManifest SetManifest()
