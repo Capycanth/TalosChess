@@ -28,7 +28,7 @@ namespace TalosChess.State
             this.loadingString = new DxStaticString(device, _font, "loading...", new Rectangle(50, device.Viewport.Height - 100, 400, 100), Color.White);
 
             // Don't need two copies, so get rid of cache
-            ResourceCache.Instance.Unload();
+            //ResourceCache.Instance.Unload();
         }
     }
 }
